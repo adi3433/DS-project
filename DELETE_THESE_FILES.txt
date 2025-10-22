@@ -1,0 +1,55 @@
+═══════════════════════════════════════════════════════════════
+  FILES TO DELETE - SecureVote Pro Cleanup
+═══════════════════════════════════════════════════════════════
+
+REQUIRED DELETIONS (Old Data Structures):
+──────────────────────────────────────────────────────────────
+❌ data_structures\bloom_filter.py
+❌ data_structures\merkle_tree.py
+
+OPTIONAL DELETIONS (Cleanup):
+──────────────────────────────────────────────────────────────
+❌ static\styles_old.css
+❌ static\styles_clean.css
+❌ CLEANUP_GUIDE.md
+❌ DELETE_THESE_FILES.txt (this file, after cleanup)
+
+═══════════════════════════════════════════════════════════════
+
+HOW TO DELETE (Windows):
+──────────────────────────────────────────────────────────────
+
+Option 1: File Explorer
+  1. Navigate to the securevote-pro folder
+  2. Go to data_structures folder
+  3. Delete bloom_filter.py
+  4. Delete merkle_tree.py
+  5. Go to static folder
+  6. Delete styles_old.css and styles_clean.css (optional)
+
+Option 2: Command Prompt
+  cd c:\Users\dell\Downloads\dsprojecttest1\securevote-pro
+  del data_structures\bloom_filter.py
+  del data_structures\merkle_tree.py
+  del static\styles_old.css
+  del static\styles_clean.css
+
+Option 3: PowerShell
+  cd c:\Users\dell\Downloads\dsprojecttest1\securevote-pro
+  Remove-Item data_structures\bloom_filter.py
+  Remove-Item data_structures\merkle_tree.py
+  Remove-Item static\styles_old.css
+  Remove-Item static\styles_clean.css
+
+═══════════════════════════════════════════════════════════════
+
+AFTER DELETION - VERIFY:
+──────────────────────────────────────────────────────────────
+✅ Run: python test_data_structures.py
+✅ Run: python main.py
+✅ Check: No import errors
+✅ Check: Application starts successfully
+
+═══════════════════════════════════════════════════════════════
+STATUS: Ready for Lab Exam! 🎓
+═══════════════════════════════════════════════════════════════
