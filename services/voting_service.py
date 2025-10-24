@@ -48,17 +48,15 @@ class VotingService:
             index = self.candidate_array.search_by_id(tally.candidate_id)
             if index != -1:
                 # Reset vote count to match database
-                candidate = self.candidate_array.candidates[index]
+                candidate = self.candidate_array.array[index]
                 candidate["vote_count"] = tally.count
     
     def _initialize_candidates(self):
         """Initialize default candidates in array."""
         default_candidates = [
-            ("CAND001", "Alice Johnson"),
-            ("CAND002", "Bob Smith"),
-            ("CAND003", "Carol Williams"),
-            ("CAND004", "David Brown"),
-            ("CAND005", "Eve Davis")
+            ("candidate_a", "Candidate A"),
+            ("candidate_b", "Candidate B"),
+            ("candidate_c", "Candidate C")
         ]
         
         for candidate_id, candidate_name in default_candidates:

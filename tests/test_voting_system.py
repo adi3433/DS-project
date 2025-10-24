@@ -123,23 +123,23 @@ class TestCandidateArray:
         array = CandidateArray(capacity=5)
         
         # Insert candidates
-        array.insert("CAND001", "Alice")
-        array.insert("CAND002", "Bob")
+        array.insert("candidate_a", "Candidate A")
+        array.insert("candidate_b", "Candidate B")
         
         # Search by ID
-        index = array.search_by_id("CAND001")
+        index = array.search_by_id("candidate_a")
         assert index == 0
         
-        index2 = array.search_by_id("CAND002")
+        index2 = array.search_by_id("candidate_b")
         assert index2 == 1
     
     def test_vote_increment(self):
         array = CandidateArray(capacity=5)
-        array.insert("CAND001", "Alice")
+        array.insert("candidate_a", "Candidate A")
         
         # Increment votes
-        array.increment_vote("CAND001")
-        array.increment_vote("CAND001")
+        array.increment_vote("candidate_a")
+        array.increment_vote("candidate_a")
         
         # Check vote count
         results = array.get_results()
@@ -147,7 +147,7 @@ class TestCandidateArray:
     
     def test_array_stats(self):
         array = CandidateArray(capacity=10)
-        array.insert("CAND001", "Alice")
+        array.insert("candidate_a", "Candidate A")
         
         stats = array.get_stats()
         assert stats["current_size"] == 1

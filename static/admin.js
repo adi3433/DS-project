@@ -374,20 +374,22 @@ function updateResultsChart(results) {
     window.resultsChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
-            labels: results.map(r => r.candidate_id),
+            labels: results.map(r => r.candidate_name || r.candidate_id),
             datasets: [{
                 data: results.map(r => r.vote_count),
                 backgroundColor: [
                     'rgba(59, 130, 246, 0.8)',
                     'rgba(16, 185, 129, 0.8)',
                     'rgba(245, 101, 101, 0.8)',
-                    'rgba(139, 92, 246, 0.8)'
+                    'rgba(139, 92, 246, 0.8)',
+                    'rgba(251, 191, 36, 0.8)'
                 ],
                 borderColor: [
                     'rgb(59, 130, 246)',
                     'rgb(16, 185, 129)',
                     'rgb(245, 101, 101)',
-                    'rgb(139, 92, 246)'
+                    'rgb(139, 92, 246)',
+                    'rgb(251, 191, 36)'
                 ],
                 borderWidth: 2
             }]
@@ -396,8 +398,24 @@ function updateResultsChart(results) {
             responsive: true,
             plugins: {
                 legend: {
+                    position: 'bottom',
                     labels: {
-                        color: 'white'
+                        color: 'white',
+                        padding: 15,
+                        font: {
+                            size: 13
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const label = context.label || '';
+                            const value = context.parsed || 0;
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
+                            return label + ': ' + value + ' votes (' + percentage + '%)';
+                        }
                     }
                 }
             }
@@ -410,23 +428,28 @@ function updateResultsTable(results) {
     const totalVotes = results.reduce((sum, r) => sum + r.vote_count, 0);
     
     let tableHtml = '';
-    results.forEach(result => {
+    const colors = ['blue', 'green', 'red', 'purple', 'yellow'];
+    
+    results.forEach((result, index) => {
         const percentage = totalVotes > 0 ? ((result.vote_count / totalVotes) * 100).toFixed(1) : 0;
+        const color = colors[index % colors.length];
+        const candidateName = result.candidate_name || result.candidate_id;
+        
         tableHtml += `
             <div class="bg-black/20 rounded-lg p-4 border border-white/10">
                 <div class="flex justify-between items-center mb-2">
-                    <span class="text-white font-medium">${result.candidate_id}</span>
-                    <span class="text-blue-300 font-bold">${result.vote_count} votes</span>
+                    <span class="text-white font-semibold text-lg">${candidateName}</span>
+                    <span class="text-${color}-300 font-bold">${result.vote_count} votes</span>
                 </div>
-                <div class="w-full bg-gray-700 rounded-full h-2">
-                    <div class="bg-blue-500 h-2 rounded-full" style="width: ${percentage}%"></div>
+                <div class="w-full bg-gray-700 rounded-full h-3">
+                    <div class="bg-${color}-500 h-3 rounded-full transition-all duration-500" style="width: ${percentage}%"></div>
                 </div>
-                <div class="text-right text-white/70 text-sm mt-1">${percentage}%</div>
+                <div class="text-right text-white/70 text-sm mt-1 font-medium">${percentage}%</div>
             </div>
         `;
     });
     
-    container.innerHTML = tableHtml;
+    container.innerHTML = tableHtml || '<div class="text-white/60 text-center py-8">No votes cast yet</div>';
 }
 
 function displayAuditTrail(events) {

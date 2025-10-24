@@ -95,9 +95,9 @@ def test_stack():
     # Test push
     print("\n1. Push Operations:")
     events = [
-        {"type": "CAST", "voter": "V001", "candidate": "CAND001"},
-        {"type": "CAST", "voter": "V002", "candidate": "CAND002"},
-        {"type": "CAST", "voter": "V003", "candidate": "CAND001"}
+        {"type": "CAST", "voter": "V001", "candidate": "candidate_a"},
+        {"type": "CAST", "voter": "V002", "candidate": "candidate_b"},
+        {"type": "CAST", "voter": "V003", "candidate": "candidate_a"}
     ]
     
     for event in events:
@@ -133,10 +133,9 @@ def test_array():
     # Test insert
     print("\n1. Insert Candidates:")
     candidates = [
-        ("CAND001", "Alice Johnson"),
-        ("CAND002", "Bob Smith"),
-        ("CAND003", "Carol Williams"),
-        ("CAND004", "David Brown")
+        ("candidate_a", "Candidate A"),
+        ("candidate_b", "Candidate B"),
+        ("candidate_c", "Candidate C")
     ]
     
     for cid, name in candidates:
@@ -148,17 +147,16 @@ def test_array():
     
     # Test search (Linear Search)
     print("\n2. Linear Search:")
-    search_id = "CAND002"
+    search_id = "candidate_b"
     index = array.search_by_id(search_id)
     print(f"   Searching for {search_id}: Found at index {index}")
     
     # Test vote increment
     print("\n3. Increment Votes:")
     votes = [
-        ("CAND001", 5),
-        ("CAND002", 3),
-        ("CAND003", 7),
-        ("CAND004", 2)
+        ("candidate_a", 5),
+        ("candidate_b", 3),
+        ("candidate_c", 7)
     ]
     
     for cid, count in votes:
